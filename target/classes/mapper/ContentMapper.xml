@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--sql 映射-->
+<!-- namespace的名字需要跟接口的类名一致   SELECT content FROM content-->
+<mapper namespace="xie.dao.ContentDao">
+    <select id="selectcont" resultType="xie.pojo.Content" parameterType="java.lang.Object">
+        SELECT * FROM content
+    </select>
+
+    <insert id="insertContent"  parameterType="xie.pojo.Content">
+        insert into content( `content`,`name`,`tame`) values(#{content},#{name},now())
+    </insert>
+</mapper>

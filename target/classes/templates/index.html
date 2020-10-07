@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>留言</title>
+    <script typet="text/javascript" src="http://libs.baidu.com/jquery/1.9.1/jquery.min.js"></script>
+</head>
+<body>
+<script>
+    function onsubitt() {
+        $.ajax({
+            url: "content/getList",
+            type: "get",
+            data: {},
+            dataType: "json",
+            success: function (data) {
+                var html ="<table>" +
+                    "<tr><th>编号</th><th>内容</th><th>时间</th><th>姓名</th></tr>"
+
+                for(var i =0 ;i<data.length;i++){
+                   // alert(data[i].content);
+                    html +=
+                        "<tr><td>"+data[i].id+"</td><td>"+data[i].content+"</td><td>"+new Date(data[i].tame)+"</td><td>"+data[i].name+"</td></tr>"
+                }
+                html+= "" +
+                "</table>";
+                $('body').append(html);
+            }
+
+        })
+    }
+    function onSubmitData(){
+        $.ajax({
+            url:"/content/subMit",
+            type:'POST',
+            data:{content:$('#content').val(),name:$('#name').val()},
+            dataType: "JSON",
+            success:function(data){
+                alert(data.msg);
+                onsubitt()
+            }
+
+
+        });
+
+
+    }
+</script>
+<input type="button" value="查询" onclick="onsubitt()">
+
+<input type="text"  id="content" value="评论内容"/>
+<input type="text"  id="name" value="姓名"/>
+<input type="button" value="提交" onclick="onSubmitData()" />
+
+
+</body>
+</html>
